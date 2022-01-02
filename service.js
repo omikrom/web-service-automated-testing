@@ -94,7 +94,7 @@ service.get('/posts', async (req, res) => {
 	}
 });
 
-service.post('/createUser', async (req, res) => { 
+service.post('/createuser', async (req, res) => { 
 	await userModel.CreateUser(req, res);
 });
 

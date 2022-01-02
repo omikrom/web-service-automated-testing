@@ -7,11 +7,16 @@ let data = {};
 async function CreateUser(req, res) {
     console.log(`Adding a new user: ${req.body.Username}`);
     try {
+        LastID();
         let userInput = [];
-        userInput.push({ id : 1,
-                         name: req.body.username,
-                         password: req.body.password,
-                         name: req.body.name,});
+        userInput.push({ 
+                        id : 1,
+                        name: req.body.username,
+                        password: req.body.password,
+                        name: req.body.name,
+                        email: req.body.email,
+                        created: Date().now()
+                        });
         console.log(userInput);
         data.push(userInput);
         res.status(201).send(userInput);
@@ -19,6 +24,7 @@ async function CreateUser(req, res) {
         console.log(error);
         res.status(400).send(error);
     } finally {
+        console.log('User created');
         res.status(201)
     }
 }
