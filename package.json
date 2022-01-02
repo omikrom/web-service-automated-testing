@@ -1,0 +1,26 @@
+{
+  "name": "web-service",
+  "version": "1.0.0",
+  "description": "Node.js Web Service",
+  "main": "service.js",
+  "scripts": {
+    "exec": "node service.js",
+    "start-mount": "nodemon -L service.js",
+    "start": "nodemon service.js",
+    "test": "mocha"
+  },
+  "author": "Richard Lamnea",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "express-validator": "^6.13.0",
+    "pg": "^8.7.1",
+    "pg-format": "^1.0.4"
+  },
+  "devDependencies": {
+    "chai": "^4.3.4",
+    "mocha": "^9.1.3",
+    "nodemon": "^2.0.15"
+  }
+}
