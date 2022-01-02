@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const service = express();
 const userDB = require("./models/user.js");
+const userModel = require("./models/userModel.js");
 const e = require('express');
 const port = 1339;
 
@@ -91,6 +92,10 @@ service.get('/posts', async (req, res) => {
 	} else {
 		await userDB.Select(res);
 	}
+});
+
+service.post('/createUser', async (req, res) => { 
+	await userModel.CreateUser(req, res);
 });
 
 service.listen(port, () => console.log(`Web service listening at http://localhost:${port}`));
