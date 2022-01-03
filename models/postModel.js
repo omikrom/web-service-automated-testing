@@ -12,7 +12,7 @@ async function CreatePost(req, res) {
                         title: req.body.title,
                         content: req.body.content,
                         created: date,
-                        creator: req.body.username,
+                        creator: req.body.creator,
                         comments : []
                         });
         console.log(post);
@@ -134,11 +134,11 @@ async function SelectAllPosts(res) {
 
 function GenerateID() {
     let total = 0;
-    for(let i = 0; i < data.length; i++) {
+    for(let i = 0; i < posts.length; i++) {
         total += 1;
     }
     console.log(total);
-    if (data.length <= 0) {
+    if (posts.length <= 0) {
         return 0;
     } else {
         return total;
@@ -147,11 +147,11 @@ function GenerateID() {
 
 function GenerateCommentID(id) {
     let total = 0;
-    for(let i = 0; i < post[id].comment.length; i++) {
+    for(let i = 0; i < posts[id].comments.length; i++) {
         total += 1;
     }
     console.log(total);
-    if (post[id].comment.length <= 0) {
+    if (posts[id].comments.length <= 0) {
         return 0;
     } else {
         return total;

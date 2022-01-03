@@ -151,7 +151,7 @@ service.post('/createpost', async (req, res) => {
 });
 
 //create comment from post id
-service.post('/comment/:id', async (req, res) => {
+service.post('/post/:id/comment', async (req, res) => {
 	await postModel.CreateComment(req.params.id, req, res);
 });
 
