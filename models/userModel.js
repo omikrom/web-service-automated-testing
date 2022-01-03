@@ -55,12 +55,10 @@ function GenerateID() {
     }
     console.log(total);
     if (data.length <= 0) {
-        return 1;
+        return 0;
     } else {
         return total;
-    }
-    //return data.id;
-    
+    }   
 }
 
 module.exports = { CreateUser, SelectUserByID };
