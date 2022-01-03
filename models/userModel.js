@@ -2,7 +2,7 @@ let data = [];
 
 async function CreateUser(req, res) {
     console.log(`Adding a new user: ${req.body.username}`);
-    if (req.body == undefined) {
+    if (req.body.username == undefined) {
         console.log('no body');
         res.status(400).send('no content');
     } else {
@@ -16,7 +16,8 @@ async function CreateUser(req, res) {
                             password: req.body.password,
                             name: req.body.name,
                             email: req.body.email,
-                            created: date
+                            created: date,
+                            status: "Successful"
                             });
             console.log(userInput);
             data.push(userInput);
