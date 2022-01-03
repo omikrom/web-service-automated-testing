@@ -78,6 +78,25 @@ async function SelectAllUsers(res) {
     }
 }
 
+async function UpdateUser(id, req, res) {
+    console.log('Updating user by ID: ' + id);
+    try {
+        let user = data.filter(user => user.id == id);
+        user[0].name = req.body.username;
+        user[0].password = req.body.password;
+        user[0].name = req.body.name;
+        user[0].email = req.body.email;
+        console.log(user);
+        res.status(200).send(user);
+    } catch(error) {
+        console.log(error);
+        res.status(400).send(error);
+    } finally {
+        console.log('request ended');
+        res.end();  
+    }
+}
+
 async function DeleteUser(id, res) {
     console.log(`Deleting user by ID: ${id}`);
     try {
