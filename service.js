@@ -94,6 +94,9 @@ service.get('/posts', async (req, res) => {
 	}
 });
 
+
+// Create user routes
+
 service.post('/createuser', async (req, res) => { 
 	await userModel.CreateUser(req, res);
 });
@@ -101,5 +104,22 @@ service.post('/createuser', async (req, res) => {
 service.get('/user/:id', async (req, res) => {
 	await userModel.SelectUserByID(parseInt(req.params.id), res);
 });
+
+service.get('/user', async (req, res) => {                                            
+	if(typeof req.query.name === "string")
+	{
+		await userModel.SelectUserByName(req.query.name, res);
+	}
+	else
+	{
+		res.status(400).send("Invalid query");
+	}
+});
+
+service.delete('/user/:id', async (req, res) => {
+    await userModel.Delete(parseInt(req.params.id), res);
+});
+
+
 
 service.listen(port, () => console.log(`Web service listening at http://localhost:${port}`));
