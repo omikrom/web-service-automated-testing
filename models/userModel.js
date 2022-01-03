@@ -16,8 +16,7 @@ async function CreateUser(req, res) {
                             password: req.body.password,
                             name: req.body.name,
                             email: req.body.email,
-                            created: date,
-                            status: "Successful"
+                            created: date
                             });
             console.log(userInput);
             data.push(userInput);
