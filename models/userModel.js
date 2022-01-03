@@ -80,14 +80,20 @@ async function SelectAllUsers(res) {
 
 async function UpdateUser(id, req, res) {
     console.log('Updating user by ID: ' + id);
+    console.log(req.body);
     try {
-        let user = data.filter(user => user.id == id);
-        user[0].name = req.body.username;
-        user[0].password = req.body.password;
-        user[0].name = req.body.name;
-        user[0].email = req.body.email;
-        console.log(user);
-        res.status(200).send(user);
+        for(let i = 0; i < data.length; i++) {
+            if (data[i].id == id) {
+                data[i].username = req.body.username;
+                data[i].password = req.body.password;
+                data[i].name = req.body.name;
+                data[i].email = req.body.email;
+                res.status(200).send(data[id]);
+            }
+        }
+        if (data[id] == undefined || data[id] == null) {
+            res.status(400).send('no content');
+        }
     } catch(error) {
         console.log(error);
         res.status(400).send(error);

@@ -114,7 +114,7 @@ service.get('/user/:id', async (req, res) => {
 });
 
 service.patch('/user/:id', async (req, res) => {
-	await userModel.UpdateUser(parseInt(req.params.id, req, res));
+	await userModel.UpdateUser(parseInt(req.params.id), req, res);
 });	
 
 //get user by name ?name=rich
