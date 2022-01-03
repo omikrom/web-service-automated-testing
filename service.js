@@ -122,7 +122,7 @@ service.get('/user', async (req, res) => {
 	console.log(req.query.query);                                           
 	if(typeof req.query.query === "string")
 	{
-		await userModel.SelectUserByName(req.query.username, res);
+		await userModel.SelectUserByName(req.query.query, res);
 	}
 	else
 	{
