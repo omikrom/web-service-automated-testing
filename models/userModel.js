@@ -12,7 +12,7 @@ async function CreateUser(req, res) {
             let userInput = {};
             userInput = ({ 
                             id : ID,
-                            name: req.body.username,
+                            username: req.body.username,
                             password: req.body.password,
                             name: req.body.name,
                             email: req.body.email,
@@ -88,11 +88,11 @@ async function UpdateUser(id, req, res) {
                 data[i].password = req.body.password;
                 data[i].name = req.body.name;
                 data[i].email = req.body.email;
-                res.status(200).send(data[id]);
+                res.status(200).send(data[i]);
             }
         }
         if (data[id] == undefined || data[id] == null) {
-            res.status(400).send('no content');
+            res.status(400).send('Not found');
         }
     } catch(error) {
         console.log(error);
