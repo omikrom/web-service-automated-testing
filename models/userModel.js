@@ -7,11 +7,11 @@ let data = [];
 async function CreateUser(req, res) {
     console.log(`Adding a new user: ${req.body.username}`);
     try {
-        let newID = LastID();
+        let ID = GenerateID();
         let date = new Date();
         let userInput = {};
         userInput = ({ 
-                        id : 1,
+                        id : ID,
                         name: req.body.username,
                         password: req.body.password,
                         name: req.body.name,
@@ -48,9 +48,16 @@ async function SelectUserByID(iD, res) {
 
 }
  
-function LastID() {
+function GenerateID() {
+    let total = 0;
     for(let i = 0; i < data.length; i++) {
-        console.log(i);
+        total += 1;
+    }
+    console.log(total);
+    if (data.length <= 0) {
+        return 1;
+    } else {
+        return total;
     }
     //return data.id;
     
