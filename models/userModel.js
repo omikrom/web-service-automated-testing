@@ -7,10 +7,10 @@ let data = [];
 async function CreateUser(req, res) {
     console.log(`Adding a new user: ${req.body.username}`);
     try {
-        LastID();
+        let newID = LastID();
         let date = new Date();
-        let userInput = [];
-        userInput.push({ 
+        let userInput = {};
+        userInput = ({ 
                         id : 1,
                         name: req.body.username,
                         password: req.body.password,
@@ -31,10 +31,10 @@ async function CreateUser(req, res) {
 }
 
 
-async function SelectUserByID(id, res) {
-    console.log(`Reading user details by ID: ${id}`);
+async function SelectUserByID(iD, res) {
+    console.log(`Reading user details by ID: ${iD}`);
     try {
-        let id = id;
+        let id = iD;
         let user = data.filter(user => user.id == id);
         console.log(user);
         res.status(200).send(user);
@@ -49,11 +49,11 @@ async function SelectUserByID(id, res) {
 }
  
 function LastID() {
-    let id = 0;
     for(let i = 0; i < data.length; i++) {
         console.log(i);
     }
-    return data.id;
+    //return data.id;
+    
 }
 
-module.exports = { CreateUser };
+module.exports = { CreateUser, SelectUserByID };
