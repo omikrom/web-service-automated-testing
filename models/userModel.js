@@ -2,12 +2,13 @@ const express = require('express');
 const {Client, Connection} = require('pg');
 const format = require('pg-format');
 
-let data = {};
+let data = [];
 
 async function CreateUser(req, res) {
-    console.log(`Adding a new user: ${req.body.Username}`);
+    console.log(`Adding a new user: ${req.body.username}`);
     try {
         LastID();
+        let date = new Date();
         let userInput = [];
         userInput.push({ 
                         id : 1,
@@ -15,7 +16,7 @@ async function CreateUser(req, res) {
                         password: req.body.password,
                         name: req.body.name,
                         email: req.body.email,
-                        created: Date().now()
+                        created: date
                         });
         console.log(userInput);
         data.push(userInput);
@@ -28,6 +29,24 @@ async function CreateUser(req, res) {
         res.status(201)
     }
 }
+
+
+async function SelectUserByID(id, res) {
+    console.log(`Reading user details by ID: ${id}`);
+    try {
+        let id = id;
+        let user = data.filter(user => user.id == id);
+        console.log(user);
+        res.status(200).send(user);
+    } catch(error) {
+        console.log(error);
+        res.status(400).send(error);
+    } finally {
+        console.log('User selected');
+        res.status(200)
+    }
+
+}
  
 function LastID() {
     let id = 0;
@@ -37,4 +56,4 @@ function LastID() {
     return data.id;
 }
 
-module.exports = { };
+module.exports = { CreateUser };

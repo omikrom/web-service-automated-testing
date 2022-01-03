@@ -98,4 +98,8 @@ service.post('/createuser', async (req, res) => {
 	await userModel.CreateUser(req, res);
 });
 
+service.get('/user/:id', async (req, res) => {
+	await userModel.SelectUserByID(parseInt(req.params.id), res);
+});
+
 service.listen(port, () => console.log(`Web service listening at http://localhost:${port}`));
