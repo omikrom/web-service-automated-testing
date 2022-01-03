@@ -118,11 +118,10 @@ service.patch('/user/:id', async (req, res) => {
 });	
 
 //get user by name ?name=rich
-service.get('/user', async (req, res) => { 
-	console.log(req.query.query);                                           
-	if(typeof req.query.query === "string")
+service.get('/user', async (req, res) => {                                          
+	if(typeof req.query.username === "string")
 	{
-		await userModel.SelectUserByName(req.query.query, res);
+		await userModel.SelectUserByName(req.query.username, res);
 	}
 	else
 	{
