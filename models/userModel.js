@@ -2,27 +2,32 @@ let data = [];
 
 async function CreateUser(req, res) {
     console.log(`Adding a new user: ${req.body.username}`);
-    try {
-        let ID = GenerateID();
-        let date = new Date();
-        let userInput = {};
-        userInput = ({ 
-                        id : ID,
-                        name: req.body.username,
-                        password: req.body.password,
-                        name: req.body.name,
-                        email: req.body.email,
-                        created: date
-                        });
-        console.log(userInput);
-        data.push(userInput);
-        res.status(201).send(userInput);
-    } catch(error) {
-        console.log(error);
-        res.status(400).send(error);
-    } finally {
-        console.log('request ended');
-        res.end();
+    if (req.body == undefined) {
+        console.log('no body');
+        res.status(400).send('no content');
+    } else {
+        try {
+            let ID = GenerateID();
+            let date = new Date();
+            let userInput = {};
+            userInput = ({ 
+                            id : ID,
+                            name: req.body.username,
+                            password: req.body.password,
+                            name: req.body.name,
+                            email: req.body.email,
+                            created: date
+                            });
+            console.log(userInput);
+            data.push(userInput);
+            res.status(201).send(userInput);
+        } catch(error) {
+            console.log(error);
+            res.status(400).send(error);
+        } finally {
+            console.log('request ended');
+            res.end();
+        }
     }
 }
 
