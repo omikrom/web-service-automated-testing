@@ -1,7 +1,3 @@
-const express = require('express');
-const {Client, Connection} = require('pg');
-const format = require('pg-format');
-
 let data = [];
 
 async function CreateUser(req, res) {
@@ -25,8 +21,8 @@ async function CreateUser(req, res) {
         console.log(error);
         res.status(400).send(error);
     } finally {
-        console.log('User created');
-        res.status(201)
+        console.log('request ended');
+        res.end();
     }
 }
 
@@ -42,10 +38,54 @@ async function SelectUserByID(iD, res) {
         console.log(error);
         res.status(400).send(error);
     } finally {
-        console.log('User selected');
-        res.status(200)
+        console.log('request ended');
+        res.end();  
     }
+}
 
+async function SelectUserByName(username, res) {
+    console.log(`Reading user details by name: ${username}`);
+    try {
+        let name = username;
+        let user = data.filter(user => user.name == name);
+        console.log(user);
+        res.status(200).send(user);
+    } catch(error) {
+        console.log(error);
+        res.status(400).send(error);
+    } finally {
+        console.log('request ended');
+        res.end();  
+    }
+}
+
+async function SelectAllUsers(res) {
+    console.log(`Reading all users`);
+    try {
+        res.status(200).send(data);
+    } catch(error) {
+        console.log(error);
+        res.status(400).send(error);
+    } finally {
+        console.log('request ended');
+        res.end();  
+    }
+}
+
+async function DeleteUser(id, res) {
+    console.log(`Deleting user by ID: ${id}`);
+    try {
+        let user = data.filter(user => user.id == id);
+        data.splice(data.indexOf(user), 1);
+        console.log(user);
+        res.status(200).send(user);
+    } catch(error) {
+        console.log(error);
+        res.status(400).send(error);
+    } finally {
+        console.log('request ended');
+        res.end();  
+    }
 }
  
 function GenerateID() {
@@ -61,4 +101,4 @@ function GenerateID() {
     }   
 }
 
-module.exports = { CreateUser, SelectUserByID };
+module.exports = { CreateUser, SelectUserByID, SelectUserByName, SelectAllUsers, DeleteUser };

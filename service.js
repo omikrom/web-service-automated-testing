@@ -22,6 +22,7 @@ service.get('/', (req,res) => {
 	res.send("Welcome!");
 });
 
+/*
 service.get('/hi', (req,res) => {
 	res.send("Hello!");
 });
@@ -93,22 +94,34 @@ service.get('/posts', async (req, res) => {
 		await userDB.Select(res);
 	}
 });
-
+*/
 
 // Create user routes
+// create a user
 
 service.post('/createuser', async (req, res) => { 
 	await userModel.CreateUser(req, res);
 });
 
+// get all users
+service.get('/users', async (req, res) => {
+	await userModel.SelectAllUsers(res);
+});
+
+//get a user by id in url
 service.get('/user/:id', async (req, res) => {
 	await userModel.SelectUserByID(parseInt(req.params.id), res);
 });
 
+service.patch('/user/:id', async (req, res) => {
+	await userModel.UpdateUser(parseInt(req.params.id, req, res));
+});	
+
+//get user by name ?name=rich
 service.get('/user', async (req, res) => {                                            
-	if(typeof req.query.name === "string")
+	if(typeof req.query.username === "string")
 	{
-		await userModel.SelectUserByName(req.query.name, res);
+		await userModel.SelectUserByName(req.query.username, res);
 	}
 	else
 	{
@@ -116,8 +129,53 @@ service.get('/user', async (req, res) => {
 	}
 });
 
+//delete a user by id
 service.delete('/user/:id', async (req, res) => {
     await userModel.Delete(parseInt(req.params.id), res);
+});
+
+// Post routes
+
+//create post 
+service.post('/createpost', async (req, res) => {
+	await postModel.CreatePost(req, res);
+});
+
+//create comment from post id
+service.post('/comment/:id', async (req, res) => {
+	await postModel.CreateComment(req.params.id, req, res);
+});
+
+//get post by id
+service.get('/post/:id', async (req, res) => {
+	await postModel.SelectPostByID(parseInt(req.params.id), res);
+});
+
+// get all comments of post
+service.get('/post/:id/comments', async (req, res) => {
+	await postModel.SelectAllCommentsByPostID(parseInt(req.params.id), res);
+});
+
+//get posts by query title or creator
+service.get('/posts', async (req, res) => {
+	if (typeof req.query.title === "string") {
+		await postModel.SelectPostByTitle(req.query.title, res);
+	}
+	if (typeof req.query.creator === "string") {
+		await postModel.SelectPostsByCreator(req.query.creator, res);
+	} else {
+		res.status(400).send("Invalid query");
+	}
+});
+
+//delete post by id
+service.delete('/post/:id', async (req, res) => {
+	await postModel.Delete(parseInt(req.params.id), res);
+});
+
+//delete comment from post by id
+service.delete('/post/:postid/comment/:id', async (req, res) => {
+	await postModel.DeleteComment(parseInt(req.params.postid), parseInt(req.params.id), res);
 });
 
 
