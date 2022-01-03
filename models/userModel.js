@@ -126,4 +126,4 @@ function GenerateID() {
     }   
 }
 
-module.exports = { CreateUser, SelectUserByID, SelectUserByName, SelectAllUsers, DeleteUser };
+module.exports = { CreateUser, SelectUserByID, SelectUserByName, SelectAllUsers, DeleteUser, UpdateUser };
