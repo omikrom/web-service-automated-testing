@@ -3,6 +3,7 @@ const cors = require('cors');
 const service = express();
 const userDB = require("./models/user.js");
 const userModel = require("./models/userModel.js");
+const postModel = require("./models/postModel.js");
 const e = require('express');
 const port = 1339;
 
@@ -96,9 +97,13 @@ service.get('/posts', async (req, res) => {
 });
 */
 
-// Create user routes
-// create a user
+			/////////////////
+			//             //
+			// User routes //
+			//             //
+			/////////////////
 
+// create a user
 service.post('/createuser', async (req, res) => { 
 	await userModel.CreateUser(req, res);
 });
@@ -131,10 +136,14 @@ service.get('/user', async (req, res) => {
 
 //delete a user by id
 service.delete('/user/:id', async (req, res) => {
-    await userModel.Delete(parseInt(req.params.id), res);
+    await userModel.DeleteUser(parseInt(req.params.id), res);
 });
 
-// Post routes
+//////////////////////////////
+//                          //
+//       Post routes        //
+//                          //
+//////////////////////////////
 
 //create post 
 service.post('/createpost', async (req, res) => {

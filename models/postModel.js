@@ -1,7 +1,8 @@
 let posts = [];
 
 async function CreatePost(req, res) {
-    console.log(`Creating a new post by: ${req.body.username}`);
+    console.log(req.body);
+    //console.log(`Creating a new post by: ${req.body.username}`);
     try {
         let ID = GenerateID();
         let date = new Date();
@@ -146,11 +147,11 @@ function GenerateID() {
 
 function GenerateCommentID(id) {
     let total = 0;
-    for(let i = 0; i < data[id].comment.length; i++) {
+    for(let i = 0; i < post[id].comment.length; i++) {
         total += 1;
     }
     console.log(total);
-    if (data[id].comment.length <= 0) {
+    if (post[id].comment.length <= 0) {
         return 0;
     } else {
         return total;
