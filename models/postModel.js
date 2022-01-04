@@ -28,57 +28,75 @@ async function CreatePost(req, res) {
 
 async function CreateComment(id, req, res) {
     console.log(`Creating a new comment by: ${req.body.username}`);
-    try {
-        let ID = GenerateCommentID(id);
-        let date = new Date();
-        let comment = {};
-        comment = ({ 
-                        commentID : ID,
-                        content: req.body.content,
-                        created: date,
-                        creator: req.body.username
-                        });
-        console.log(comment);
-        posts[id].comments.push(comment);
-        res.status(201).send(comment);
-    } catch(error) {
-        console.log(error);
-        res.status(400).send(error);
-    } finally {
+    if (id == undefined) {
+        res.status(400).send({message: 'Post ID is required'});
+        console.log('request ended');
         res.end();
+    } else {
+        try {
+            let ID = GenerateCommentID(id);
+            let date = new Date();
+            let comment = {};
+            comment = ({ 
+                            commentID : ID,
+                            content: req.body.content,
+                            created: date,
+                            creator: req.body.username
+                            });
+            console.log(comment);
+            posts[id].comments.push(comment);
+            res.status(201).send(comment);
+        } catch(error) {
+            console.log(error);
+            res.status(400).send(error);
+        } finally {
+            res.end();
+        }
     }
 }
 
 async function SelectPostByID(id, res) {
     console.log(`Reading post details by ID: ${id}`);
-    try {
-        let postID = id;
-        let post = posts.filter(post => post.postID == postID);
-        console.log(post);
-        res.status(200).send(post);
-    } catch(error) {
-        console.log(error);
-        res.status(400).send(error);
-    } finally {
+    if (id == undefined) {
+        res.status(400).send({message: 'Post ID is required'});
         console.log('request ended');
-        res.end();  
-    }
+        res.end();
+    } else {
+        try {
+            let postID = id;
+            let post = posts.filter(post => post.postID == postID);
+            console.log(post);
+            res.status(200).send(post);
+        } catch(error) {
+            console.log(error);
+            res.status(400).send(error);
+        } finally {
+            console.log('request ended');
+            res.end();  
+        }
+}   
 }
 
 async function SelectAllCommentsByPostID(id,res) {
     console.log(`Reading all comments by ID: ${id}`);
-    try {
-        let postID = id;
-        let post = posts.filter(post => post.postID == postID);
-        console.log('found post', post);
-        let comments = post[0].comments;
-        res.status(200).send(comments);
-    } catch(error) {
-        console.log(error);
-        res.status(400).send(error);
-    } finally {
+    if (id == undefined) {
+        res.status(400).send({message: 'Post ID is required'});
         console.log('request ended');
-        res.end();  
+        res.end();
+    } else {
+        try {
+            let postID = id;
+            let post = posts.filter(post => post.postID == postID);
+            console.log('found post', post);
+            let comments = post[0].comments;
+            res.status(200).send(comments);
+        } catch(error) {
+            console.log(error);
+            res.status(400).send(error);
+        } finally {
+            console.log('request ended');
+            res.end();  
+        }
     }
 }
 
@@ -131,35 +149,47 @@ async function SelectAllPosts(res) {
 
 async function DeletePost(id, res) {
     console.log(`Deleting post by ID: ${id}`);
-    try {
-        let postID = id;
-        let post = posts.filter(post => post.postID == postID);
-        console.log(post);
-        posts.splice(postID, 1);
-        res.status(200).send({message: 'Post deleted', post});
-    } catch(error) {
-        console.log(error);
-        res.status(400).send(error);
-    } finally {
+    if (id == undefined){
+        res.status(400).send({message: 'Post ID is required'});
         console.log('request ended');
-        res.end();  
+        res.end();
+    } else {
+        try {
+            let postID = id;
+            let post = posts.filter(post => post.postID == postID);
+            console.log(post);
+            posts.splice(postID, 1);
+            res.status(200).send({message: 'Post deleted', post});
+        } catch(error) {
+            console.log(error);
+            res.status(400).send(error);
+        } finally {
+            console.log('request ended');
+            res.end();  
+        }
     }
 }
 
 async function DeleteComment(postID, id, res) {
     console.log(`Deleting comment by ID: ${id}`);
-    try {
-        let commentID = id;
-        let comment = posts[postID].comments.filter(comment => comment.commentID == commentID);
-        console.log(comment);
-        posts[postID].comments.splice(commentID, 1);
-        res.status(200).send({message: 'Comment deleted', comment});
-    } catch(error) {
-        console.log(error);
-        res.status(400).send(error);
-    } finally {
+    if (id == undefined){
+        res.status(400).send({message: 'Comment ID is required'});
         console.log('request ended');
-        res.end();  
+        res.end();
+    } else {  
+        try {
+            let commentID = id;
+            let comment = posts[postID].comments.filter(comment => comment.commentID == commentID);
+            console.log(comment);
+            posts[postID].comments.splice(commentID, 1);
+            res.status(200).send({message: 'Comment deleted', comment});
+        } catch(error) {
+            console.log(error);
+            res.status(400).send(error);
+        } finally {
+            console.log('request ended');
+            res.end();  
+        }
     }
 }
 
