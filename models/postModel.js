@@ -146,6 +146,23 @@ async function DeletePost(id, res) {
     }
 }
 
+async function DeleteComment(postID, id, res) {
+    console.log(`Deleting comment by ID: ${id}`);
+    try {
+        let commentID = id;
+        let comment = posts[postID].comments.filter(comment => comment.commentID == commentID);
+        console.log(comment);
+        posts[postID].comments.splice(commentID, 1);
+        res.status(200).send({message: 'Comment deleted', comment});
+    } catch(error) {
+        console.log(error);
+        res.status(400).send(error);
+    } finally {
+        console.log('request ended');
+        res.end();  
+    }
+}
+
 
 
 
@@ -175,4 +192,4 @@ function GenerateCommentID(id) {
     }
 }
 
-module.exports = { CreatePost, CreateComment, SelectPostByID, SelectPostByTitle, SelectPostsByCreator, SelectAllCommentsByPostID, SelectAllPosts, DeletePost };
+module.exports = { CreatePost, CreateComment, SelectPostByID, SelectPostByTitle, SelectPostsByCreator, SelectAllCommentsByPostID, SelectAllPosts, DeletePost, DeleteComment };
