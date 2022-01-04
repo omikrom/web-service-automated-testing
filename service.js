@@ -169,17 +169,19 @@ service.get('/post/:id/comments', async (req, res) => {
 service.get('/posts', async (req, res) => {
 	if (typeof req.query.title === "string") {
 		await postModel.SelectPostByTitle(req.query.title, res);
-	}
-	if (typeof req.query.creator === "string") {
-		await postModel.SelectPostsByCreator(req.query.creator, res);
 	} else {
-		res.status(400).send("Invalid query");
+		if (typeof req.query.creator === "string") {
+			await postModel.SelectPostsByCreator(req.query.creator, res);
+		} else {
+			res.status(400).send("Invalid query");
+		}
 	}
+	
 });
 
 //delete post by id
 service.delete('/post/:id', async (req, res) => {
-	await postModel.Delete(parseInt(req.params.id), res);
+	await postModel.DeletePost(parseInt(req.params.id), res);
 });
 
 //delete comment from post by id
