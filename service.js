@@ -9,9 +9,9 @@ const port = 1339;
 
 var os = require( 'os' );
 var networkInterfaces = os.networkInterfaces();
-var arr = networkInterfaces['Local Area Connection 3']
-var ip = arr[1].address
-
+console.log(networkInterfaces);
+var arr = networkInterfaces['Local Area Connection']
+var ip = arr[0].address
 console.log(ip);
 
 service.use(express.json());
