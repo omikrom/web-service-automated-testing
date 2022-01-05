@@ -7,12 +7,6 @@ const postModel = require("./models/postModel.js");
 const e = require('express');
 const port = 1339;
 
-var os = require( 'os' );
-var networkInterfaces = os.networkInterfaces();
-console.log(networkInterfaces);
-var arr = networkInterfaces['Local Area Connection']
-var ip = arr[0].address
-console.log(ip);
 
 service.use(express.json());
 service.use(express.urlencoded({extended:true}));
