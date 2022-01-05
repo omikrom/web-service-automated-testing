@@ -5,7 +5,7 @@ const userDB = require("./models/user.js");
 const userModel = require("./models/userModel.js");
 const postModel = require("./models/postModel.js");
 const e = require('express');
-const port = 1339;
+const port = process.env.PORT || 1339;
 
 
 service.use(express.json());
