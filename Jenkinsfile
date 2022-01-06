@@ -9,7 +9,8 @@ pipeline {
         }
         stage('Test') {
             steps {
-                    sh '#!/bin/bash sudo apt install nodejs'
+                    sh '#!/bin/bash
+                    sudo apt install nodejs'
                     sh '''#!/bin/bash
                     node --version;
                     npm --version; 
