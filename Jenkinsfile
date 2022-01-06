@@ -1,8 +1,8 @@
 pipeline {
     agent any
 
-    nodejs('NodeJS') {
-        sh 'npm install'
+    tools {
+        nodejs "NodeJS"
     }
 
     stages {
@@ -13,10 +13,12 @@ pipeline {
         }
         stage('Test') {
             steps {
-                    sh 'npm install'
+            
+                    sh 'npm i'
                     sh '''#!/bin/bash
-                    node --version;
+                    
                     npm --version; 
+                    node --version;
 
                     echo "------> Install node modules <-------";
                     npm install -g newman;
