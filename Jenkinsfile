@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    nodejs('NodeJS') {
+        sh 'npm install'
+    }
+
     stages {
         stage('Build') {
             steps {
@@ -8,9 +12,6 @@ pipeline {
             }
         }
         stage('Test') {
-            nodejs('NodeJS') {
-                sh 'npm install'
-            }
             steps {
                     sh 'npm install'
                     sh '''#!/bin/bash
