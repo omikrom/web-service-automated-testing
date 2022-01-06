@@ -10,7 +10,7 @@ pipeline {
         }
         stage('Test') {
             steps {
-                step {
+
                     sh '''#!/bin/bash
                     node --version;
                     npm --version; 
@@ -23,7 +23,7 @@ pipeline {
                     echo "running post board request tests";
                     newman run "https://www.getpostman.com/collections/e5556fd000d5b6132693" --reporters cli,junit,htmlextra --reporter-junit-export "newman/integration-test-report.xml" ;
                     git log;'''
-                }
+
             }
         }
         stage('Deploy') {
