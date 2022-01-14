@@ -57,7 +57,7 @@ pipeline {
                 sh 'git checkout master'
                 sh 'git add .'
                 sh 'git commit -m "staging"'
-                sh 'git push origin staging'
+                sh 'git push -u origin staging'
             }
         }
         stage('Deploy') {
