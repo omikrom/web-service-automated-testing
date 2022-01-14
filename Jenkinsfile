@@ -54,7 +54,7 @@ pipeline {
         stage('Staging') {
             steps {
                 echo 'Current Branch: ' + env.GIT_BRANCH
-                WithCredentials([usernamePassword(credentialsId: 'ci-github', passwordVariable: 'L0v31987#', usernameVariable: 'omikrom')]) {
+                withCredentials([usernamePassword(credentialsId: 'ci-github', passwordVariable: 'L0v31987#', usernameVariable: 'omikrom')]) {
                     sh('git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/omikrom/web-service-automated-testing.git')
                 }
             }
