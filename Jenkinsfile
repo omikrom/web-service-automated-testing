@@ -59,7 +59,8 @@ pipeline {
                         withCredentials([usernamePassword(credentialsId: '82d6b20c-0b65-4a42-8707-f44c0613558e', passwordVariable: 'L0v31987#', usernameVariable: 'omikrom')]) {
                         sh('git add --all')
                         sh('git commit -m "Automated commit"')
-                        sh('git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/omikrom/web-service-automated-testing.git')
+                        sh('git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/omikrom/web-service-automated-testing.git origin/staging')
+                        }
                         }
                     } else {
                         echo 'Current Branch: ' + env.GIT_BRANCH
