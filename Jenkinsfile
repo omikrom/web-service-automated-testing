@@ -54,11 +54,9 @@ pipeline {
         stage('Staging') {
             steps {
                 echo 'Current Branch: ' + env.GIT_BRANCH
-                sh 'git config --global user.name "omikrom" && git config --global user.email "omikrom2@gmail.com"'
-                sh 'git add .'
-                sh 'git commit -m "staging"'
-                sh 'git remote set-url origin git@github.com:omikrom/web-service-automated-testing.git'
-                sh 'git push origin staging'
+                WithCredentials([usernamePassword(credentialsId: 'ci-github', passwordVariable: 'L0v31987#', usernameVariable: 'omikrom')]) {
+                    sh('git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/omikrom/web-service-automated-testing.git')
+                }
             }
         }
         stage('Deploy') {
