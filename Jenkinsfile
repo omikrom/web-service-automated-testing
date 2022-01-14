@@ -54,7 +54,7 @@ pipeline {
         stage('Staging') {
             steps {
                 echo 'Current Branch: ' + env.GIT_BRANCH
-                sh 'git checkout -b staging'
+                sh 'git checkout master'
                 sh 'git add .'
                 sh 'git commit -m "staging"'
                 sh 'git push origin staging'
