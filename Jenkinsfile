@@ -54,9 +54,11 @@ pipeline {
         stage('Staging') {
             steps {
                 echo 'Current Branch: ' + env.GIT_BRANCH
+                sh 'git config --global user.name "omikrom" && git config --global user.email "omikrom2@gmail.com"'
                 sh 'git add .'
                 sh 'git commit -m "staging"'
-                sh 'git push https://github.com/omikrom/web-service-automated-testing.git staging'
+                sh 'git remote set-url origin git@github.com:omikrom/web-service-automated-testing.git'
+                sh 'git push origin staging'
             }
         }
         stage('Deploy') {
