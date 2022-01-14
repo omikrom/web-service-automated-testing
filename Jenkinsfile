@@ -54,8 +54,14 @@ pipeline {
         stage('Staging') {
             steps {
                 echo 'Current Branch: ' + env.GIT_BRANCH
+            }
+            steps {
                 git checkout master
-                git commit -m 'Jenkinsfile'
+            }
+            steps {
+                git add .
+            }
+            steps {
                 git push origin staging
             }
         }
