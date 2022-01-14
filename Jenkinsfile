@@ -56,7 +56,7 @@ pipeline {
                 echo 'Current Branch: ' + env.GIT_BRANCH
                 sh 'git add .'
                 sh 'git commit -m "staging"'
-                sh 'git push -u origin staging'
+                sh 'git push https://github.com/omikrom/web-service-automated-testing.git staging'
             }
         }
         stage('Deploy') {
