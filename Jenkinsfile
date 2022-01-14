@@ -13,6 +13,11 @@ pipeline {
                 sh 'node --version'
             }
         }
+        stage ('Staging') {
+            steps {
+                echo 'Pulling...' + env.GIT_BRANCH
+            }
+        }
         stage('Test Post board requests') {
             steps {
             
