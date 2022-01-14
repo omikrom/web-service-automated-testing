@@ -13,11 +13,6 @@ pipeline {
                 sh 'node --version'
             }
         }
-        stage ('Staging') {
-            steps {
-                echo 'Pulling...' + env.GIT_BRANCH
-            }
-        }
         stage('Test Post board requests') {
             steps {
             
@@ -54,6 +49,14 @@ pipeline {
                 echo "running post board request tests";
                 newman run "https://www.getpostman.com/collections/6e6ff6debb7621be8031" --reporters cli,junit,htmlextra --reporter-junit-export "newman/userreq-integration-test-report.xml" ;
                 git log;'''
+            }
+        }
+        stage('Staging') {
+            steps {
+                echo 'Current Branch: ' + env.GIT_BRANCH
+                git checkout master
+                git commit -m 'Jenkinsfile'
+                git push origin staging
             }
         }
         stage('Deploy') {
