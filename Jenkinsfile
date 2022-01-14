@@ -58,7 +58,7 @@ pipeline {
                         echo 'Current Branch: ' + env.GIT_BRANCH
                         withCredentials([usernamePassword(credentialsId: '82d6b20c-0b65-4a42-8707-f44c0613558e', passwordVariable: 'L0v31987#', usernameVariable: 'omikrom')]) {
                         sh('git add .') 
-                        sh('git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/omikrom/web-service-automated-testing.git staging master')}
+                        sh('git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/omikrom/web-service-automated-testing.git')}
                     } else {
                         echo 'Current Branch: ' + env.GIT_BRANCH
                     }
