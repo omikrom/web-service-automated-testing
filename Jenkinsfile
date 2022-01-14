@@ -57,14 +57,9 @@ pipeline {
                     if (env.BRANCH_NAME == 'master') {
                         echo 'Current Branch: ' + env.GIT_BRANCH
                         withCredentials([usernamePassword(credentialsId: '82d6b20c-0b65-4a42-8707-f44c0613558e', passwordVariable: 'L0v31987#', usernameVariable: 'omikrom')]) {
-                            git.push(
-                                credentialsId: '82d6b20c-0b65-4a42-8707-f44c0613558e',
-                                remote: 'origin',
-                                branch: 'staging',
-                                force: true
-                            )
+                        sh('git add .')
+                        sh('git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/omikrom/web-service-automated-testing.git')
                         }
-                        //sh('git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/omikrom/web-service-automated-testing.git')}
                     } else {
                         echo 'Current Branch: ' + env.GIT_BRANCH
                     }
@@ -73,7 +68,7 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                echo 'Hello World'
+                sh 'Hello World'
             }
         }
     }
