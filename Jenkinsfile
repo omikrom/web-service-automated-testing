@@ -51,14 +51,13 @@ pipeline {
                 git log;'''
             }
         }
-        stage('Staging') {
-            when {
-                branch = 'master'
-            }
-            steps {
-                echo 'Current Branch: ' + env.GIT_BRANCH
-                withCredentials([usernamePassword(credentialsId: '82d6b20c-0b65-4a42-8707-f44c0613558e', passwordVariable: 'L0v31987#', usernameVariable: 'omikrom')]) {
-                    sh('git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/omikrom/web-service-automated-testing.git')
+        if (env.BRANCH_NAME == "master") {
+            stage('Push to Staging') {
+                steps {
+                    echo 'Current Branch: ' + env.GIT_BRANCH
+                    withCredentials([usernamePassword(credentialsId: '82d6b20c-0b65-4a42-8707-f44c0613558e', passwordVariable: 'L0v31987#', usernameVariable: 'omikrom')]) {
+                        sh('git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/omikrom/web-service-automated-testing.git')
+                    }
                 }
             }
         }
