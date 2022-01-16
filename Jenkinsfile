@@ -67,10 +67,5 @@ pipeline {
         //        }
         //    }
         //}
-        stage('Deploy') {
-            steps {
-                sh 'Hello World'
-            }
-        }
     }
 }
