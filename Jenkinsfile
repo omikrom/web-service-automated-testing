@@ -62,6 +62,7 @@ pipeline {
                         }
                     } else {
                         echo 'Current Branch: ' + env.GIT_BRANCH
+                        sh('hello')
                     }
                 }
             }
