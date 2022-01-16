@@ -129,7 +129,7 @@ SelectByName = async (name, res) =>
 		else
 			console.log(`Records not found for ${name}`);
 		
-		res.send(results.rows);
+		res.status(200).send(results.rows);
 	}
 	catch(error)
 	{
