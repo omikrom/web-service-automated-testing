@@ -1,10 +1,8 @@
 const express = require('express');
 const cors = require('cors');
 const service = express();
-const userDB = require("./models/user.js");
 const userModel = require("./models/userModel.js");
 const postModel = require("./models/postModel.js");
-const e = require('express');
 const port = process.env.PORT || 1339;
 
 
@@ -47,7 +45,7 @@ service.get('/user/:id', async (req, res) => {
 });
 
 service.patch('/user/:id', async (req, res) => {
-	await userModel.UpdateUser(parseInt(req.params.id), req, res);
+	await userModel.UpdateUserByID(parseInt(req.params.id), req, res);
 });	
 
 //get user by name ?name=rich
@@ -116,7 +114,6 @@ service.delete('/post/:id', async (req, res) => {
 service.delete('/post/:postid/comment/:id', async (req, res) => {
 	await postModel.DeleteCommentByID(parseInt(req.params.postid), parseInt(req.params.id), res);
 });
-
 
 
 service.listen(port, () => console.log(`Web service listening at http://localhost:${port}`));
