@@ -80,7 +80,7 @@ service.post('/createpost', async (req, res) => {
 
 //create comment from post id
 service.post('/post/:id/comment', async (req, res) => {
-	await postModel.CreateComment(req.params.id, req, res);
+	await postModel.CreateComment(parseInt(req.params.id), req, res);
 });
 
 //get post by id
@@ -109,12 +109,12 @@ service.get('/posts', async (req, res) => {
 
 //delete post by id
 service.delete('/post/:id', async (req, res) => {
-	await postModel.DeletePost(parseInt(req.params.id), res);
+	await postModel.DeletePostByID(parseInt(req.params.id), res);
 });
 
 //delete comment from post by id
 service.delete('/post/:postid/comment/:id', async (req, res) => {
-	await postModel.DeleteComment(parseInt(req.params.postid), parseInt(req.params.id), res);
+	await postModel.DeleteCommentByID(parseInt(req.params.postid), parseInt(req.params.id), res);
 });
 
 
