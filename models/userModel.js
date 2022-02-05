@@ -19,7 +19,6 @@ async function CreateUser(req, res) {
         } catch(error) {
             res.status(400).send(error);
         } finally {
-            console.log('request ended');
             res.end();
         }
     }
@@ -59,15 +58,11 @@ async function SelectUserByName(username, res) {
     }
     if (found == true) {
         try {
-            let name = username;
-            let user = data.filter(user => user.name == name);
-            console.log(user);
+            let user = data.filter(user => user.username == username);
             res.status(200).send(user);
         } catch(error) {
-            console.log(error);
             res.status(400).send(error);
         } finally {
-            console.log('request ended');
             res.end();  
         }
     } else {
@@ -133,7 +128,6 @@ async function DeleteUser(id, res) {
         } catch(error) {
             res.status(400).send(error);
         } finally {
-            console.log('request ended');
             res.end();  
         }
     } else {
