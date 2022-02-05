@@ -28,8 +28,8 @@ async function CreateUser(req, res) {
 async function SelectUserByID(iD, res) {
     console.log(`Reading user details by ID: ${iD}`);
     let found = false;
-    for(let i = 0; i < userdata.length; i++) {
-        if (userdata[i].id == iD) {
+    for(let i = 0; i < data.length; i++) {
+        if (data[i].id == iD) {
             found = true;
             break;
         }
@@ -142,7 +142,7 @@ async function DeleteUser(id, res) {
 }
  
 function GenerateID() {
-    return userdata.length + 1;
+    return data.length + 1;
 }
 
 module.exports = { CreateUser, SelectUserByID, SelectUserByName, SelectAllUsers, DeleteUser, UpdateUserByID };
