@@ -25,11 +25,11 @@ async function CreateUser(req, res) {
     }
 
 
-async function SelectUserByID(iD, res) {
-    console.log(`Reading user details by ID: ${iD}`);
+async function SelectUserByID(id, res) {
+    console.log(`Reading user details by ID: ${id}`);
     let found = false;
     for(let i = 0; i < data.length; i++) {
-        if (data[i].id == iD) {
+        if (data[i].id == id) {
             found = true;
             break;
         }
