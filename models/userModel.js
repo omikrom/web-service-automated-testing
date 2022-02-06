@@ -33,7 +33,7 @@ async function SelectUserByID(id, res) {
             break;
         }
     }
-    if (found) {
+    if (found == true) {
         try {
             let user = data.filter(user => user.id == id);
             res.status(200).send(user);

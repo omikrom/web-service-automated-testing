@@ -111,7 +111,9 @@ async function SelectPostByTitle(title, res) {
         if (posts[i].title == title) {
             found = true;
             break;
+        }
     }
+    console.log('found: ' + found);
     if (found == true) {
         try {
             let postTitle = title;
@@ -122,9 +124,8 @@ async function SelectPostByTitle(title, res) {
         } finally {
             res.end();  
         }
-        } else {
+    } else {
             res.status(404).send("Post not found");
-        }
     }
 }
 
