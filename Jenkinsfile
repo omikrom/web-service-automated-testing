@@ -64,5 +64,6 @@ pipeline {
                 artillery run simple.yml;
                 '''
                  }
+        }
     }
 }
