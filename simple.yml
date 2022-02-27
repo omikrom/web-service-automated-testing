@@ -15,6 +15,9 @@ config:
     - duration: 600
       arrivalRate: 50
       name: Sustained load
+    - duration: 60
+      arrivalRate: 5000
+      name: Trending load
   defaults:
     headers:
       content-type: "application/json"
@@ -34,12 +37,12 @@ scenarios:
         expect:
           - statusCode: 201 
     - log: "Sent create request id: {{ id }}"
-    - think: 30
+    - think: 3
     - get:
         url: "/user/{{ id }}"
         expect:
           - statusCode: 200
-    - think: 10
+    - think: 6
     - patch:
         url: "/user/{{ id }}"
         json:
@@ -53,7 +56,7 @@ scenarios:
         expect:
           - statusCode: 200
     - log: "{{ username }}"
-    - think: 10
+    - think: 3
     - get:
         url: "/user"
         qs:
@@ -62,7 +65,7 @@ scenarios:
           json: "$.id"
           as: "newId"
     - log: "{{ newId }}"
-    - think: 10
+    - think: 5
     - delete:
         url: "/user/{{ newId }}"
         capture:

@@ -1,9 +1,10 @@
 config:
   target: 'https://web-service-testing-python.herokuapp.com'
-  phases:
-    - duration: 60
-      arrivalRate: 20
-phases:
+  processor: "helpers/pre-request.js"
+  timeout: 3
+  ensure:
+    p95: 1000
+  phases: 
     - duration: 60
       arrivalRate: 5
       name: Warm up
@@ -14,6 +15,12 @@ phases:
     - duration: 600
       arrivalRate: 50
       name: Sustained load
+    - duration: 60
+      arrivalRate: 5000
+      name: Trending load
+  defaults:
+    headers:
+      content-type: "application/json"
 scenarios:
   - name: "Create User"
   - flow:
@@ -27,10 +34,16 @@ scenarios:
         capture:
           json: "$.id"
           as: "id"
-    - log: "{{ id }}"
+        expect:
+          - statusCode: 201 
+    - log: "Sent create request id: {{ id }}"
+    - think: 3
     - get:
         url: "/user/{{ id }}"
-    - update:
+        expect:
+          - statusCode: 200
+    - think: 6
+    - patch:
         url: "/user/{{ id }}"
         json:
           username: "omikrom2"
@@ -40,7 +53,10 @@ scenarios:
         capture:
           json: "$.username"
           as: "username"
+        expect:
+          - statusCode: 200
     - log: "{{ username }}"
+    - think: 3
     - get:
         url: "/user"
         qs:
@@ -49,6 +65,7 @@ scenarios:
           json: "$.id"
           as: "newId"
     - log: "{{ newId }}"
+    - think: 5
     - delete:
         url: "/user/{{ newId }}"
         capture:
