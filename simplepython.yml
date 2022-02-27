@@ -54,4 +54,4 @@ scenarios:
         capture:
           json: "$.id"
           as: "deleteId"
-    - log: "{{ deleteId }}""
+    - log: "{{ deleteId }}"
