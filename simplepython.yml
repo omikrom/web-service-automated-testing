@@ -3,7 +3,55 @@ config:
   phases:
     - duration: 60
       arrivalRate: 20
+phases:
+    - duration: 60
+      arrivalRate: 5
+      name: Warm up
+    - duration: 120
+      arrivalRate: 5
+      rampTo: 50
+      name: Ramp up load
+    - duration: 600
+      arrivalRate: 50
+      name: Sustained load
 scenarios:
+  - name: "Create User"
   - flow:
+    - post:
+        url: "/createuser"
+        json:
+          username: "omikrom"
+          password: "123456"
+          name: "richard"
+          email: "1802749@student.uwtsd.ac.uk"
+        capture:
+          json: "$.id"
+          as: "id"
+    - log: "{{ id }}"
     - get:
-        url: "/users"
+        url: "/user/{{ id }}"
+    - update:
+        url: "/user/{{ id }}"
+        json:
+          username: "omikrom2"
+          password: "123456"
+          name: "richardo"
+          email: "1802749@student.uwtsd.ac.uk"
+        capture:
+          json: "$.username"
+          as: "username"
+    - log: "{{ username }}"
+    - get:
+        url: "/user"
+        qs:
+          username: "omikrom2"
+        capture:
+          json: "$.id"
+          as: "newId"
+    - log: "{{ newId }}"
+    - delete:
+        url: "/user/{{ newId }}"
+        capture:
+          json: "$.id"
+          as: "deleteId"
+    - log: "{{ deleteId }}""
