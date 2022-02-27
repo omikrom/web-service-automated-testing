@@ -61,7 +61,8 @@ pipeline {
 
                 echo "------> Install node modules <-------";
                 npm install -g artillery@latest;
-                artillery run simple.yml;
+                artillery run --output reports/reportJS.json simple.yml;
+                artillery report --output reports/reportJS reports/reportJS.json;
                 '''
                  }
         }
@@ -75,9 +76,17 @@ pipeline {
 
                 echo "------> Install node modules <-------";
                 npm install -g artillery@latest;
-                artillery run simplepython.yml;
+                artillery run --output reports/reportPY.json simplepython.yml;
+                artillery report --output reports/reportPY reports/reportPY.json;
                 '''
                  }
         }
     }
+
+    post {
+        success {
+            archiveArtifacts 'reports/*'
+        }
+    }
+
 }
