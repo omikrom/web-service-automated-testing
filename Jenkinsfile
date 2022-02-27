@@ -51,7 +51,7 @@ pipeline {
                 '''
             }
         }
-        stage('Performance Test') {
+        stage('Performance Test on Expressjs') {
             steps {
                 sh 'npm i'
                 sh '''#!/bin/bash
@@ -62,6 +62,20 @@ pipeline {
                 echo "------> Install node modules <-------";
                 npm install -g artillery@latest;
                 artillery run simple.yml;
+                '''
+                 }
+        }
+        stage('Performance Test on Flask') {
+            steps {
+                sh 'npm i'
+                sh '''#!/bin/bash
+
+                npm --version;
+                node --version;
+
+                echo "------> Install node modules <-------";
+                npm install -g artillery@latest;
+                artillery run simplepython.yml;
                 '''
                  }
         }
