@@ -1,5 +1,9 @@
 config:
   target: 'https://web-service-testing.herokuapp.com'
+  processor: "helpers/pre-request.js"
+  timeout: 3
+  ensure:
+    p95: 1000
   phases:
     - duration: 60
       arrivalRate: 5
@@ -11,6 +15,9 @@ config:
     - duration: 600
       arrivalRate: 50
       name: Sustained load
+  defaults:
+    headers:
+      content-type: "application/json"
 scenarios:
   - name: "Create User"
   - flow:
@@ -24,10 +31,16 @@ scenarios:
         capture:
           json: "$.id"
           as: "id"
-    - log: "{{ id }}"
+        expect:
+          - statusCode: 201 
+    - log: "Sent create request id: {{ id }}"
+    - think: 30
     - get:
         url: "/user/{{ id }}"
-    - update:
+        expect:
+          - statusCode: 200
+    - think: 10
+    - patch:
         url: "/user/{{ id }}"
         json:
           username: "omikrom2"
@@ -37,7 +50,10 @@ scenarios:
         capture:
           json: "$.username"
           as: "username"
+        expect:
+          - statusCode: 200
     - log: "{{ username }}"
+    - think: 10
     - get:
         url: "/user"
         qs:
@@ -46,6 +62,7 @@ scenarios:
           json: "$.id"
           as: "newId"
     - log: "{{ newId }}"
+    - think: 10
     - delete:
         url: "/user/{{ newId }}"
         capture:
