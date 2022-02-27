@@ -62,8 +62,8 @@ pipeline {
                 echo "------> Install node modules <-------";
                 npm install -g artillery@latest;'''
                 sh '''mkdir -p 'reports' '''
-                sh '''artillery run --output reports/reportJS.json simple.yml;
-                artillery report --output reports/reportJS.html reports/reportJS.json;
+                sh '''artillery run -o reports/reportJS2.json simple.yml;
+                artillery report reports/reportJS2 reports/reportJS2.json;
                 '''
                  }
         }
@@ -78,8 +78,8 @@ pipeline {
                 echo "------> Install node modules <-------";
                 npm install -g artillery@latest;'''
                 sh '''mkdir -p 'reports' '''
-                sh '''artillery run --output reports/reportPY.json simplepython.yml;
-                artillery report --output reports/reportPY.html reports/reportPY.json;
+                sh '''artillery run -o reports/reportPY2.json simplepython.yml;
+                artillery report reports/reportPY2.html reports/reportPY2.json;
                 '''
             }
         }
