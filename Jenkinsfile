@@ -63,7 +63,7 @@ pipeline {
                 npm install -g artillery@latest;'''
                 sh '''mkdir -p 'reports' '''
                 sh '''artillery run --output reports/reportJS.json simple.yml;
-                artillery report --output reports/reportJS reports/reportJS.json;
+                artillery report --output reports/reportJS.html reports/reportJS.json;
                 '''
                  }
         }
