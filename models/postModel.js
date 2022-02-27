@@ -1,16 +1,24 @@
-let posts = [{
-    "postId": 0,
-    "title": "a post",
-    "content": "This is the first post",
-    "created": "2020-01-01 00:00:00",
-    "creator": "omikrom2",
-    "comments": [{
-        "commentId": 0,
-        "content": "This is the first comment",
-        "created": "2020-01-01 00:00:00",
-        "creator": "omikrom2"
-    }, ]
-}, ];
+let posts = [];
+let dummyDate = new Date()
+posts.push({
+    postID: 0,
+    title: "Post 1",
+    content: "This is the first post",
+    created: dummyDate,
+    creator: "omikrom2",
+    comments: []
+});
+
+let dummyComment = {};
+dummyComment = ({
+    commentID: 0,
+    content: "random content",
+    created: dummyDate,
+    creator: "omikrom2"
+});
+posts[0].comments.push(dummyComment);
+
+console.log(posts);
 
 async function CreatePost(req, res) {
     console.log(`Creating a new post by: ${req.body.creator}`);
