@@ -79,9 +79,9 @@ pipeline {
                 npm install -g artillery@latest;'''
                 sh '''mkdir -p 'reports' '''
                 sh '''artillery run --output reports/reportPY.json simplepython.yml;
-                artillery report --output reports/reportPY reports/reportPY.json;
+                artillery report --output reports/reportPY.html reports/reportPY.json;
                 '''
-                 }
+            }
         }
     }
 
