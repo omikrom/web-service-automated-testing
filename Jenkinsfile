@@ -63,18 +63,39 @@ pipeline {
 
                         echo "------> Install node modules <-------";
                         npm install -g artillery@latest;'''
-                        sh '''npm install node-jq --save'''
-                        sh '''mkdir -p 'reports' '''
-                        sh """artillery run --output reports/new-report${env.BUILD_ID}.json simple.yml"""
-                        sh """artillery report --output reports/new-report${env.BUILD_ID} reports/new-report${env.BUILD_ID}.json """
-                        testPassed = true
+                        sh """artillery run --output reports/warm-up${env.BUILD_ID}.json warmup.yml"""
+                        sh """artillery report --output reports/warm-up${env.BUILD_ID} reports/warm-up${env.BUILD_ID}.json """
+                        testWarmup = true
+                        sh """artillery run --output reports/ramp-up${env.BUILD_ID}.json rampup.yml"""
+                        sh """artillery report --output reports/ramp-up${env.BUILD_ID} reports/ramp-up${env.BUILD_ID}.json """
+                        testRampup = true
+                        sh """artillery run --output reports/sustained${env.BUILD_ID}.json sustained.yml"""
+                        sh """artillery report --output reports/sustained${env.BUILD_ID} reports/sustained${env.BUILD_ID}.json """
+                        testSustained = true
+                        sh """artillery run --output reports/overload${env.BUILD_ID}.json overload.yml"""
+                        sh """artillery report --output reports/overload${env.BUILD_ID} reports/overload${env.BUILD_ID}.json """
+                        testOverload = true
                     }catch (Exception e) {
-                        testPassed = false
+                        testWarmup = false
+                        testRampup = false
+                        testSustained = false
+                        testOverload = false
                     }finally {
-                        if(testPassed){
-                            sh '''echo "Test Passed"'''
+                        if(testWarmup){
+                            sh '''echo "Warmup Test Passed"'''
                             echo """Running ${env.BUILD_ID}"""
-                            archiveArtifacts 'reports/*'
+                        }
+                        if (testRampup){
+                            sh '''echo "Ramp-up Test Passed"'''
+                            echo """Running ${env.BUILD_ID}"""
+                        }
+                        if (testSustained){
+                            sh '''echo "Sustained Test Passed"'''
+                            echo """Running ${env.BUILD_ID}"""
+                        }
+                        if (testOverload){
+                            sh '''echo "Overload Test Passed"'''
+                            echo """Running ${env.BUILD_ID}"""
                         }
                     }
                 }
