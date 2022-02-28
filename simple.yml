@@ -35,38 +35,38 @@ scenarios:
           as: "id"
         expect:
           - statusCode: 201 
-    - log: "Sent create request id: {{ id }}"
-    - think: 10
-    - get:
-        url: "/user/{{ id }}"
-        expect:
-          - statusCode: 200
-    - think: 10
-    - patch:
-        url: "/user/{{ id }}"
-        json:
-          username: "omikrom2"
-          password: "123456"
-          name: "richardo"
-          email: "1802749@student.uwtsd.ac.uk"
-        capture:
-          json: "$.username"
-          as: "username"
-    - log: "Sent Patch request username: {{ username }}"
-    - think: 10
-    - get:
-        url: "/user"
-        qs:
-          username: "omikrom2"
-        capture:
-          json: "$.id"
-          as: "newId"
-    - log: "Sent get user by username id: {{ newId }}"
-    - think: 10
-    - delete:
-        url: "/user/{{ newId }}"
-        capture:
-          json: "$.id"
-          as: "deleteId"
-    - log: "Sent delete request id: {{ deleteId }}"
+    #- log: "Sent create request id: {{ id }}"
+    #- think: 10
+    #- get:
+    #    url: "/user/{{ id }}"
+    #    expect:
+    #      - statusCode: 200
+    #- think: 10
+    #- patch:
+    #    url: "/user/{{ id }}"
+    #    json:
+    #      username: "omikrom2"
+    #      password: "123456"
+    #      name: "richardo"
+    #      email: "1802749@student.uwtsd.ac.uk"
+    #    capture:
+    #      json: "$.username"
+    #      as: "username"
+    #- log: "Sent Patch request username: {{ username }}"
+    #- think: 10
+    #- get:
+    #    url: "/user"
+    #    qs:
+    #      username: "omikrom2"
+    #    capture:
+    #      json: "$.id"
+    #      as: "newId"
+    #- log: "Sent get user by username id: {{ newId }}"
+    #- think: 10
+    #- delete:
+    #    url: "/user/{{ newId }}"
+    #    capture:
+    #      json: "$.id"
+    #      as: "deleteId"
+    #- log: "Sent delete request id: {{ deleteId }}"
 
