@@ -42,7 +42,7 @@ scenarios:
         expect:
           - statusCode: 200
     - log : "Sent get request id: {{ id }}"
-    - think: 30
+    - think: 10
     - patch:
         url: "/user/{{ id }}"
         json:
