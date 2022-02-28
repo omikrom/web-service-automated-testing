@@ -64,25 +64,22 @@ pipeline {
                         echo "------> Install node modules <-------";
                         npm install -g artillery@latest;'''
                         sh '''mkdir -p 'reports' '''
-                        sh '''artillery run --output reports/new-report.json simple.yml'''
-                        sh '''artillery report reports/new-report.json'''
+                        sh '''artillery run --output reports/new-report${env.BUILD_ID}.json simple.yml'''
+                        sh '''artillery report reports/new-report${env.BUILD_ID}.json'''
+                        testPassed = true
                     }catch (Exception e) {
                         testPassed = false
+                    }finally {
+                        if(testPassed){
+                            sh '''echo "Test Passed"'''
+                            echo "Running ${env.BUILD_ID}"
+                            archiveArtifacts '*'
+                        }
                     }
                 }
                 /*sh '''artillery run -o reports/reportJS2.json simple.yml;
                 artillery report reports/reportJS2 reports/reportJS2.json;
                 '''*/
-            }
-        }
-        stage('Saving Artifacts') {
-            steps {
-                script {
-                    if (testPassed) {
-                    archiveArtifacts '**/*'
-                    }
-                }
-                
             }
         }
         /*
