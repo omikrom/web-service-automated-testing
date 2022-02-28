@@ -37,8 +37,6 @@ scenarios:
           - statusCode: 201
     - log: "Sent create request id: {{ id }}"
     - think: 10
-  - name: "Get User"
-  - flow: 
     - get:
         url: "/user/{{ id }}"
         expect:
