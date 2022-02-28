@@ -66,7 +66,6 @@ pipeline {
                         sh '''npm install node-jq --save'''
                         sh '''mkdir -p 'reports' '''
                         sh """artillery run --output reports/new-report${env.BUILD_ID}.json simple.yml"""
-                        sh """jq ".aggregate reports/new-report${env.BUILD_ID}.json" """
                         sh """artillery report reports/new-report${env.BUILD_ID}"""
                         testPassed = true
                     }catch (Exception e) {
