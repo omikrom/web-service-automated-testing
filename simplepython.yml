@@ -34,14 +34,15 @@ scenarios:
           json: "$.id"
           as: "id"
         expect:
-          - statusCode: 201 
+          - statusCode: 201
     - log: "Sent create request id: {{ id }}"
-    - think: 3
+    - think: 10
     - get:
         url: "/user/{{ id }}"
         expect:
           - statusCode: 200
-    - think: 6
+    - log : "Sent get request id: {{ id }}"
+    - think: 30
     - patch:
         url: "/user/{{ id }}"
         json:
@@ -52,22 +53,4 @@ scenarios:
         capture:
           json: "$.username"
           as: "username"
-        expect:
-          - statusCode: 200
-    - log: "{{ username }}"
-    - think: 3
-    - get:
-        url: "/user"
-        qs:
-          username: "omikrom2"
-        capture:
-          json: "$.id"
-          as: "newId"
-    - log: "{{ newId }}"
-    - think: 5
-    - delete:
-        url: "/user/{{ newId }}"
-        capture:
-          json: "$.id"
-          as: "deleteId"
-    - log: "{{ deleteId }}"
+    - log: "Sent Patch request username: {{ username }}"
