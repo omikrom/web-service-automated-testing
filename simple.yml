@@ -42,7 +42,7 @@ scenarios:
         expect:
           - statusCode: 200
     - log : "Sent get request id: {{ id }}"
-    - think: 10
+    - think: 30
     - patch:
         url: "/user/{{ id }}"
         json:
@@ -54,9 +54,4 @@ scenarios:
           json: "$.username"
           as: "username"
     - log: "Sent Patch request username: {{ username }}"
-    - think: 10
-    - delete: 
-        url: "/user/{{ id }}"
-        expect:
-          - statusCode: 200
 
