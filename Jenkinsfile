@@ -97,6 +97,11 @@ pipeline {
                             sh '''echo "Overload Test Passed"'''
                             echo """Running ${env.BUILD_ID}"""
                         }
+                        if (testWarmup && testRampup && testSustained && testOverload){
+                            sh '''echo "All Tests Passed"'''
+                            echo """Running ${env.BUILD_ID}"""
+                            archiveArtifacts 'reports/*'
+                        }
                     }
                 }
                 /*sh '''artillery run -o reports/reportJS2.json simple.yml;
