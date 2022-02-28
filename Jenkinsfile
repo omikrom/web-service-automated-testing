@@ -73,7 +73,7 @@ pipeline {
                         if(testPassed){
                             sh '''echo "Test Passed"'''
                             echo "Running ${env.BUILD_ID}"
-                            archiveArtifacts '*'
+                            archiveArtifacts 'reports/*'
                         }
                     }
                 }
