@@ -62,13 +62,16 @@ pipeline {
                 echo "------> Install node modules <-------";
                 npm install -g artillery@latest;'''
                 sh '''mkdir -p 'reports' '''
-                sh '''artillery run -o reports/report-test.json simple.yml'''
-                sh '''artillery report -o reports/report-test.html reports/report-test.json'''
+                sh '''artillery run --output reports/new-report.json simple.yml'''
+                sh '''artillery report reports/new-report.json'''
 
                 /*sh '''artillery run -o reports/reportJS2.json simple.yml;
                 artillery report reports/reportJS2 reports/reportJS2.json;
                 '''*/
                  }
+            success {
+                archiveArtifacts 'reports/*'
+            }
         }
         /*
         stage('Performance Test on Flask') {
