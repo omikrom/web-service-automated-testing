@@ -53,24 +53,33 @@ pipeline {
         }
         stage('Performance Test on Expressjs') {
             steps {
-                sh 'npm i'
-                sh '''#!/bin/bash
+                try {
+                    sh 'npm i'
+                    sh '''#!/bin/bash
 
-                npm --version;
-                node --version;
+                    npm --version;
+                    node --version;
 
-                echo "------> Install node modules <-------";
-                npm install -g artillery@latest;'''
-                sh '''mkdir -p 'reports' '''
-                sh '''artillery run --output reports/new-report.json simple.yml'''
-                sh '''artillery report reports/new-report.json'''
+                    echo "------> Install node modules <-------";
+                    npm install -g artillery@latest;'''
+                    sh '''mkdir -p 'reports' '''
+                    sh '''artillery run --output reports/new-report.json simple.yml'''
+                    sh '''artillery report reports/new-report.json'''
+                }catch (Exception e) {
+                    testPassed = false
+                }
+
 
                 /*sh '''artillery run -o reports/reportJS2.json simple.yml;
                 artillery report reports/reportJS2 reports/reportJS2.json;
                 '''*/
-                 }
-            success {
-                archiveArtifacts 'reports/*'
+            }
+        }
+        stage('Saving Artifacts') {
+            steps {
+                if (testPassed) {
+                    archiveArtifacts '**/*'
+                }
             }
         }
         /*
