@@ -55,19 +55,8 @@ scenarios:
           as: "username"
     - log: "Sent Patch request username: {{ username }}"
     - think: 10
-    - get:
-        url: "/user"
-        qs:
-          username: "omikrom2"
-        capture:
-          json: "$.id"
-          as: "newId"
-    - log: "Sent get user by username id: {{ newId }}"
-    - think: 10
-    - delete:
-        url: "/user/{{ newId }}"
-        capture:
-          json: "$.id"
-          as: "deleteId"
-    - log: "Sent delete request id: {{ deleteId }}"
+    - delete: 
+        url: "/user/{{ id }}"
+        expect:
+          - statusCode: 200
 
