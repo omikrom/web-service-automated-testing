@@ -64,8 +64,8 @@ pipeline {
                         echo "------> Install node modules <-------";
                         npm install -g artillery@latest;'''
                         sh '''mkdir -p 'reports' '''
-                        sh '''artillery run --output reports/new-report${env.BUILD_ID}.json simple.yml'''
-                        sh '''artillery report reports/new-report${env.BUILD_ID}.json'''
+                        sh "artillery run --output reports/new-report${env.BUILD_ID}.json simple.yml"
+                        sh "artillery report reports/new-report${env.BUILD_ID}.json"
                         testPassed = true
                     }catch (Exception e) {
                         testPassed = false
