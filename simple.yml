@@ -34,14 +34,16 @@ scenarios:
           json: "$.id"
           as: "id"
         expect:
-          - statusCode: 201 
-    #- log: "Sent create request id: {{ id }}"
-    #- think: 10
-    #- get:
-    #    url: "/user/{{ id }}"
-    #    expect:
-    #      - statusCode: 200
-    #- think: 10
+          - statusCode: 201
+    - log: "Sent create request id: {{ id }}"
+    - think: 10
+  - name: "Get User" 
+    - get:
+        url: "/user/{{ id }}"
+        expect:
+          - statusCode: 200
+    - log : "Sent get request id: {{ id }}"
+    - think: 10
     #- patch:
     #    url: "/user/{{ id }}"
     #    json:
