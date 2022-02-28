@@ -6,7 +6,7 @@ config:
   http:
     extendedMetrics: true
   phases:
-    - duration: 600
+    - duration: 300
       arrivalRate: 50
       name: Sustained load
   defaults:

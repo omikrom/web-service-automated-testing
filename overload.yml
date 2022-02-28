@@ -6,8 +6,8 @@ config:
   http:
     extendedMetrics: true
   phases:
-    - duration: 60
-      arrivalRate: 5000
+    - duration: 1
+      arrivalRate: 10000
       name: Trending load
   defaults:
     headers:
