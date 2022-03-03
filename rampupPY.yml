@@ -1,0 +1,50 @@
+config:
+  target: 'https://web-service-testing-python.herokuapp.com'
+  timeout: 3
+  ensure:
+    p95: 1000
+  http:
+    extendedMetrics: true
+  phases:
+    - duration: 120
+      arrivalRate: 5
+      rampTo: 50
+      name: Ramp up load
+  defaults:
+    headers:
+      content-type: "application/json"
+scenarios:
+  - name: "Create, Get & Update a User"
+  - flow:
+    - post:
+        url: "/createuser"
+        json:
+          username: "omikrom"
+          password: "123456"
+          name: "richard"
+          email: "1802749@student.uwtsd.ac.uk"
+        capture:
+          json: "$.id"
+          as: "id"
+        expect:
+          - statusCode: 201
+    - log: "Sent create request id: {{ id }}"
+    - think: 10
+    - get:
+        url: "/user/{{ id }}"
+        expect:
+          - statusCode: 200
+    - log : "Sent get request id: {{ id }}"
+    - think: 10
+    - patch:
+        url: "/user/{{ id }}"
+        json:
+          username: "omikrom2"
+          password: "123456"
+          name: "richardo"
+          email: "1802749@student.uwtsd.ac.uk"
+        capture:
+          json: "$.username"
+          as: "username"
+    - log: "Sent Patch request username: {{ username }}"
+
