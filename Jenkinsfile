@@ -125,17 +125,17 @@ pipeline {
 
                         echo "------> Install node modules <-------";
                         npm install -g artillery@latest;'''
-                        sh """artillery run --output reports/warm-up${env.BUILD_ID}.json warmupPY.yml"""
-                        sh """artillery report --output reports/warm-up${env.BUILD_ID} reports/warm-up${env.BUILD_ID}.json """
+                        sh """artillery run --output reports/warm-upPY${env.BUILD_ID}.json warmupPY.yml"""
+                        sh """artillery report --output reports/warm-upPY${env.BUILD_ID} reports/warm-upPY${env.BUILD_ID}.json """
                         testWarmup = true
-                        sh """artillery run --output reports/ramp-up${env.BUILD_ID}.json rampupPY.yml"""
-                        sh """artillery report --output reports/ramp-up${env.BUILD_ID} reports/ramp-up${env.BUILD_ID}.json """
+                        sh """artillery run --output reports/ramp-upPY${env.BUILD_ID}.json rampupPY.yml"""
+                        sh """artillery report --output reports/ramp-upPY${env.BUILD_ID} reports/ramp-upPY${env.BUILD_ID}.json """
                         testRampup = true
-                        sh """artillery run --output reports/sustained${env.BUILD_ID}.json sustainedPY.yml"""
-                        sh """artillery report --output reports/sustained${env.BUILD_ID} reports/sustained${env.BUILD_ID}.json """
+                        sh """artillery run --output reports/sustainedPY${env.BUILD_ID}.json sustainedPY.yml"""
+                        sh """artillery report --output reports/sustainedPY${env.BUILD_ID} reports/sustainedPY${env.BUILD_ID}.json """
                         testSustained = true
-                        sh """artillery run --output reports/overload${env.BUILD_ID}.json overloadPY.yml"""
-                        sh """artillery report --output reports/overload${env.BUILD_ID} reports/overload${env.BUILD_ID}.json """
+                        sh """artillery run --output reports/overloadPY${env.BUILD_ID}.json overloadPY.yml"""
+                        sh """artillery report --output reports/overloadPY${env.BUILD_ID} reports/overloadPY${env.BUILD_ID}.json """
                         testOverload = true
                     }catch (Exception e) {
                         testWarmup = false
