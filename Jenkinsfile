@@ -171,8 +171,9 @@ pipeline {
                     }
                 }
             }
-        } 
+        }
 
+    }
     post {
         success {
             archiveArtifacts 'reports/*'
@@ -180,3 +181,4 @@ pipeline {
     }
 
 }
+
