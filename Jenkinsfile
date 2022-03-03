@@ -102,6 +102,10 @@ pipeline {
                             echo """Running ${env.BUILD_ID}"""
                             archiveArtifacts 'reports/*'
                         }
+                        testWarmup = false
+                        testRampup = false
+                        testSustained = false
+                        testOverload = false
                     }
                 }
                 /*sh '''artillery run -o reports/reportJS2.json simple.yml;
@@ -109,7 +113,7 @@ pipeline {
                 '''*/
             }
         }
-        stage('Performance Test on Expressjs') {
+        stage('Performance Test on Python flask') {
             steps {
                 script {        
                     try {
@@ -160,31 +164,14 @@ pipeline {
                             echo """Running ${env.BUILD_ID}"""
                             archiveArtifacts 'reports/*'
                         }
+                        testWarmup = false
+                        testRampup = false
+                        testSustained = false
+                        testOverload = false
                     }
                 }
-                /*sh '''artillery run -o reports/reportJS2.json simple.yml;
-                artillery report reports/reportJS2 reports/reportJS2.json;
-                '''*/
             }
-        }
-        /*
-        stage('Performance Test on Flask') {
-            steps {
-                sh 'npm i'
-                sh '''#!/bin/bash
-
-                npm --version;
-                node --version;
-
-                echo "------> Install node modules <-------";
-                npm install -g artillery@latest;'''
-                sh '''mkdir -p 'reports' '''
-                sh '''artillery run -o reports/reportPY2.json simplepython.yml;
-                artillery report reports/reportPY2.html reports/reportPY2.json;
-                '''
-            }
-        }*/
-    }
+        } 
 
     post {
         success {
