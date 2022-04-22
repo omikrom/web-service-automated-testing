@@ -21,7 +21,6 @@ pipeline {
         }
         stage('Test Post board requests') {
             steps {
-            
                     sh 'npm i'
                     sh '''#!/bin/bash
                     
