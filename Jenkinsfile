@@ -6,11 +6,17 @@ pipeline {
     }
 
     stages {
+        stage('Pull code') {
+            steps {
+                git 'https://github.com/omikrom/web-service-automated-testing'
+            }
+        }
         stage('Build') {
             steps {
                 sh 'npm i'
                 sh 'npm --version'
                 sh 'node --version'
+                sh 'npm install'            
             }
         }
         stage('Test Post board requests') {
