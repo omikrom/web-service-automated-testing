@@ -1,5 +1,5 @@
 let data = [];
-
+// *
 async function CreateUser(req, res) {
     console.log(`Adding a new user: ${req.body.username}`);
     try {
